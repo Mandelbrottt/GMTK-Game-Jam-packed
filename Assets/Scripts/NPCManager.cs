@@ -6,8 +6,6 @@ public class NPCManager : MonoBehaviour
 { 
     public List<NPC> NPCs { get; private set; }
 
-    public int numAliveNPCs { get; private set; }
-
     bool isFirstFrame;
 
     // Start is called before the first frame update
@@ -31,13 +29,22 @@ public class NPCManager : MonoBehaviour
     public void RegisterNPC(NPC a_NPC)
     {
         NPCs.Add(a_NPC);
-        numAliveNPCs++;
     }
 
     public void UnregisterNPC(NPC a_NPC)
     {
         NPCs.Remove(a_NPC);
-        numAliveNPCs--;
+    }
+
+    public bool AreThereAnyInfectedNPCs()
+    {
+        foreach (NPC npc in NPCs)
+        {
+            if (npc.isInfected)
+                return true;
+        }
+
+        return false;
     }
 
     void SetRandomInfectedNPC()
