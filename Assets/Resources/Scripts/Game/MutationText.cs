@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class MutationText : MonoBehaviour
-{
+public class MutationText : MonoBehaviour {
+	public UnityEvent onLevelStart;
+	
     [Header("Mutation Text Settings")]
     public GameObject mutationDescription;
     public float durationInMiddleOfScreen;
@@ -45,6 +47,8 @@ public class MutationText : MonoBehaviour
 
     float m_MiddleOfScreenCountdown;
 
+	private bool m_hasLevelStarted = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -60,7 +64,10 @@ public class MutationText : MonoBehaviour
     {
         m_MiddleOfScreenCountdown -= Time.deltaTime;
 
-        if (m_MiddleOfScreenCountdown < 0f && m_InterpolationParam < 1f)
+        if (m_MiddleOfScreenCountdown >= 0f)
+			return;
+		
+		if (m_InterpolationParam < 1f)
         {
             m_InterpolationParam += m_InterpolationSpeed * Time.deltaTime;
             Mathf.Min(m_InterpolationParam, 1f);
@@ -68,10 +75,16 @@ public class MutationText : MonoBehaviour
             transform.position   = Vector3.Lerp(textStartPosition, textEndPosition, m_InterpolationParam);
             transform.localScale = Vector3.Lerp(textStartScale,    textEndScale,    m_InterpolationParam);
         }
+		else if (!m_hasLevelStarted) {
+			m_hasLevelStarted = true;
+
+			onLevelStart?.Invoke();
+		}
     }
 
-    public void IntroduceMutation(InfectedMutations a_Mutation)
-    {
+    public void IntroduceMutation(InfectedMutations a_Mutation) {
+		m_hasLevelStarted = false;
+		
         m_MiddleOfScreenCountdown = durationInMiddleOfScreen;
 
         m_InterpolationParam = 0f;
@@ -124,4 +137,6 @@ public class MutationText : MonoBehaviour
                 break;
         }
     }
+	
+	
 }

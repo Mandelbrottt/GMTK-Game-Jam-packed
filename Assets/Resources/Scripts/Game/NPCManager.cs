@@ -28,13 +28,13 @@ public class NPCManager : MonoBehaviour
 
     // Start is called before the first frame update
 	private void Awake() {
-		
+		FindObjectOfType<MutationText>().onLevelStart.AddListener(PostLevelLoad);
 	}
 
     public void RegisterNPC(NPC a_NPC)
     {
         NPCs.Add(a_NPC);
-    }
+	}
 
     public void UnregisterNPC(NPC a_NPC)
     {

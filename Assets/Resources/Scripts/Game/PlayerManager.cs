@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI livesText = null;
 
+	[SerializeField]
 	private bool m_hasPlayerDied = false;
 
 	private void Start()
