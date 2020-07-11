@@ -21,6 +21,8 @@ public class NPCManager : MonoBehaviour
 { 
     public List<NPC> NPCs { get; private set; }
     public InfectedMutations currentMutation = InfectedMutations.none;
+
+    public MutationText mutationText;
 	
 	public UnityEvent onLastInfectedDied;
 
@@ -56,6 +58,8 @@ public class NPCManager : MonoBehaviour
 	
 	public void PreLevelLoad() {
 		NPCs = new List<NPC>();
+
+        mutationText.IntroduceMutation(currentMutation);
     }
 
     public void PostLevelLoad() {
