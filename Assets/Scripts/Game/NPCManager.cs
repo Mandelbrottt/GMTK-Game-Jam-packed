@@ -1,12 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class NPCManager : MonoBehaviour
 { 
     public List<NPC> NPCs { get; private set; }
 
     bool isFirstFrame;
+
+	public UnityEvent OnLastInfectedDied;
 
     // Start is called before the first frame update
     void Awake()
@@ -34,6 +39,10 @@ public class NPCManager : MonoBehaviour
     public void UnregisterNPC(NPC a_NPC)
     {
         NPCs.Remove(a_NPC);
+
+		if (!AreThereAnyInfectedNPCs()) {
+			OnLastInfectedDied?.Invoke();
+		}
     }
 
     public bool AreThereAnyInfectedNPCs()
