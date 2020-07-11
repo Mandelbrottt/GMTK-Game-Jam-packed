@@ -46,7 +46,7 @@ public class MutationText : MonoBehaviour
     float m_MiddleOfScreenCountdown;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_MutationTitle       = GetComponent<TMP_Text>();
         m_MutationDescription = mutationDescription.GetComponent<TMP_Text>();
