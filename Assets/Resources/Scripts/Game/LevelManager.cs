@@ -1,8 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour { 
 	public List<GameObject> levels;
@@ -15,6 +19,8 @@ public class LevelManager : MonoBehaviour {
 	private GameObject m_currentLevel;
 	
 	private void Start() {
+		LoadLevelPrefabs("Prefabs/Levels");
+		
 		var playerManager = FindObjectOfType<PlayerManager>();
 		playerManager.onPlayerInfected.AddListener(PlayerInfectedEvent);
 		playerManager.onPlayerSurvived.AddListener(PlayerSurvivedEvent);
@@ -61,6 +67,14 @@ public class LevelManager : MonoBehaviour {
 		while (!asyncLoad.isDone)
 		{
 			yield return null;
+		}
+	}
+
+	private void LoadLevelPrefabs(string path) {
+		var res = Resources.LoadAll<GameObject>(path);
+
+		foreach (var obj in res) {
+			levels.Add(obj);
 		}
 	}
 }
