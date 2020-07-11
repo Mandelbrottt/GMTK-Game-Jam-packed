@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -7,6 +9,8 @@ public class Player : MonoBehaviour
 
     public Material invincibleMaterial;
     public Material standardMaterial;
+
+	public UnityEvent OnPlayerInfected;
 
     Vector3 movement;
 
@@ -24,7 +28,10 @@ public class Player : MonoBehaviour
         movement.z  = 0f;
 
         OnRoundStart();
-    }
+
+		var playerManager = FindObjectOfType<PlayerManager>();
+		playerManager.RegisterPlayer(this);
+	}
 
     // Update is called once per frame
     void Update()
@@ -41,7 +48,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        m_RigidBody.MovePosition(m_RigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
+        m_RigidBody.MovePosition(m_RigidBody.position + movement * (moveSpeed * Time.fixedDeltaTime));
     }
 
     public void OnRoundStart()
@@ -65,6 +72,8 @@ public class Player : MonoBehaviour
 
     private void OnInfected()
     {
+		OnPlayerInfected?.Invoke();
+		
         Destroy(gameObject);
-    }
+	}
 }

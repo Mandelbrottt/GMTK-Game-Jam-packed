@@ -1,30 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
+
+public enum InfectedMutations
+{
+    none,
+    moveFaster,
+    biggerSize,
+    surviveLonger,
+    moreStartInfected,
+    leavesAoeAfterDeath,
+    explodeAfterDeath,
+    splitsIntoTwoUponDeath
+}
 
 public class NPCManager : MonoBehaviour
 { 
     public List<NPC> NPCs { get; private set; }
-
-    bool isFirstFrame;
+    public InfectedMutations currentMutation = InfectedMutations.none;
+	
+	public UnityEvent onLastInfectedDied;
 
     // Start is called before the first frame update
-    void Awake()
-    {
-        NPCs = new List<NPC>();
-        isFirstFrame = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (isFirstFrame)
-        {
-            isFirstFrame = false;
-
-            SetRandomInfectedNPC();
-        }
-    }
+	private void Awake() {
+		var levelManager = FindObjectOfType<LevelManager>();
+	}
 
     public void RegisterNPC(NPC a_NPC)
     {
@@ -34,6 +37,10 @@ public class NPCManager : MonoBehaviour
     public void UnregisterNPC(NPC a_NPC)
     {
         NPCs.Remove(a_NPC);
+
+		if (!AreThereAnyInfectedNPCs()) {
+			onLastInfectedDied?.Invoke();
+		}
     }
 
     public bool AreThereAnyInfectedNPCs()
@@ -45,6 +52,17 @@ public class NPCManager : MonoBehaviour
         }
 
         return false;
+    }
+	
+	public void PreLevelLoad() {
+		NPCs = new List<NPC>();
+    }
+
+    public void PostLevelLoad() {
+        if (currentMutation == InfectedMutations.moreStartInfected)
+		    SetRandomInfectedNPC(6);
+        else
+            SetRandomInfectedNPC(0);
     }
 
     void SetRandomInfectedNPC(int a_NumNPCsToInfect = 1)
