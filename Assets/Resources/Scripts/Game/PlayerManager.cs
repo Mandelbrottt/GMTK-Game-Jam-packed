@@ -26,10 +26,6 @@ public class PlayerManager : MonoBehaviour
 		m_npcManager = FindObjectOfType<NPCManager>();
 		
 		m_npcManager.onLastInfectedDied.AddListener(PlayerWins);
-
-		// TEMPORARY
-		//onPlayerSurvived.AddListener(() => { SceneManager.LoadScene("Menu"); });
-		//onPlayerInfected.AddListener(() => { SceneManager.LoadScene("Gameplay"); });
 	}
 
 	public void RegisterPlayer(Player player) {
