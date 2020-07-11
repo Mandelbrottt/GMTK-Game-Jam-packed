@@ -9,6 +9,7 @@ public class NPC : MonoBehaviour
     public Material healthyMaterial;
     public Material infectedMaterial;
     public GameObject explodePrefab;
+    public GameObject infectPrefab;
 
     public float infectedLifeTime;
 
@@ -58,6 +59,7 @@ public class NPC : MonoBehaviour
     public void OnInfected()
     {
         isInfected = true;
+        Instantiate(infectPrefab, this.transform.position, this.transform.rotation);
         m_TimeTillDeathCountdown = infectedLifeTime;
         m_MeshRenderer.material  = infectedMaterial;
     }
@@ -65,7 +67,7 @@ public class NPC : MonoBehaviour
     void OnDie()
     {
         m_NPCManager.UnregisterNPC(this);
-        Instantiate(explodePrefab, this.transform);
+        Instantiate(explodePrefab, this.transform.position, this.transform.rotation);
         Destroy(gameObject);
     }
 
