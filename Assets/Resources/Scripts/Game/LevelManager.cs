@@ -38,8 +38,8 @@ public class LevelManager : MonoBehaviour {
 		if (reset) {
 			m_currentLevel = Instantiate(levels[m_currentLevelIndex]);
 		} else {
-			var index = levels.Count > 1 ? Random.Range(1, levels.Count) : 0;
-			m_currentLevel = Instantiate(levels[index]);
+			m_currentLevelIndex = levels.Count > 1 ? Random.Range(1, levels.Count) : 0;
+			m_currentLevel = Instantiate(levels[m_currentLevelIndex]);
 		}
 
 		onPostLevelLoadEvent?.Invoke();

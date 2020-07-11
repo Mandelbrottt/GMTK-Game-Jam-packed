@@ -56,10 +56,16 @@ public class NPC : MonoBehaviour
         }
     }
 
-    public void OnInfected()
-    {
-        isInfected = true;
-        Instantiate(infectPrefab, this.transform.position, this.transform.rotation);
+    public void OnInfected() 
+	{
+		isInfected = true;
+		{
+			// Create the particle for infecting an npc then destroy it after it's dead
+			var transform1 = transform;
+			var infect     = Instantiate(infectPrefab, transform1.position, transform1.rotation);
+			var ps         = infect.GetComponent<ParticleSystem>();
+			Destroy(infect, ps.main.duration);
+		}
         m_TimeTillDeathCountdown = infectedLifeTime;
         m_MeshRenderer.material  = infectedMaterial;
 
@@ -78,12 +84,20 @@ public class NPC : MonoBehaviour
                 break;
         }
     }
+	
+	
 
     void OnDie()
     {
         m_NPCManager.UnregisterNPC(this);
-        Instantiate(explodePrefab, this.transform.position, this.transform.rotation);
-        Destroy(gameObject);
+		{
+			// Create the particle for an npc dying then destroy it after the particle has ended
+			var transform1 = transform;
+			var infect     = Instantiate(explodePrefab, transform1.position, transform1.rotation);
+			var ps         = infect.GetComponentInChildren<ParticleSystem>();
+			Destroy(infect, ps.main.duration * 2);
+		}
+		Destroy(gameObject);
     }
 
     void OnCollisionEnter(Collision collision)
