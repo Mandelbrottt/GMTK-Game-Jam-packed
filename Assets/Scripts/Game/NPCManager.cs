@@ -5,9 +5,22 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
+public enum InfectedMutations
+{
+    none,
+    moveFaster,
+    biggerSize,
+    surviveLonger,
+    moreStartInfected,
+    leavesZoneAfterDeath,
+    explodeAfterDeath,
+    splitsIntoTwoUponDeath
+}
+
 public class NPCManager : MonoBehaviour
 { 
     public List<NPC> NPCs { get; private set; }
+    public InfectedMutations currentMutation = InfectedMutations.none;
 
     bool isFirstFrame;
 

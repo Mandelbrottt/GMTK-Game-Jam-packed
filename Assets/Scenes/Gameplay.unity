@@ -1556,7 +1556,7 @@ Transform:
   m_GameObject: {fileID: 538547692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.3, y: -0.75, z: 0}
-  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 1746056401}
   m_RootOrder: 1
@@ -1649,7 +1649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2eac2b00e29294a95285f6847eba62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 8.5
   roundStartInvincibilityTime: 1
   invincibleMaterial: {fileID: 2100000, guid: 953fc31805c88604d8e45042e974f4c2, type: 2}
   standardMaterial: {fileID: 2100000, guid: 459a6415707fd1449be03c4eabd11755, type: 2}
@@ -2331,6 +2331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ea761abae50f74bb26264358a33a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMutation: 4
   OnLastInfectedDied:
     m_PersistentCalls:
       m_Calls: []

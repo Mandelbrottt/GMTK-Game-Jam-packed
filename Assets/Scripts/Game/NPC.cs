@@ -59,6 +59,21 @@ public class NPC : MonoBehaviour
         isInfected = true;
         m_TimeTillDeathCountdown = infectedLifeTime;
         m_MeshRenderer.material  = infectedMaterial;
+
+        switch (m_NPCManager.currentMutation)
+        {
+            case InfectedMutations.biggerSize:
+                transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+                break;
+
+            case InfectedMutations.moveFaster:
+                moveSpeed += 2.5f;
+                break;
+
+            case InfectedMutations.surviveLonger:
+                m_TimeTillDeathCountdown += 6f;
+                break;
+        }
     }
 
     void OnDie()
