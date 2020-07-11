@@ -28,9 +28,7 @@ public class NPCManager : MonoBehaviour
 
     // Start is called before the first frame update
 	private void Awake() {
-		var levelManager = FindObjectOfType<LevelManager>();
-		levelManager.onPreLevelLoadEvent.AddListener(PreLevelLoad);
-		levelManager.onPostLevelLoadEvent.AddListener(PostLevelLoad);
+		
 	}
 
     public void RegisterNPC(NPC a_NPC)
@@ -58,7 +56,7 @@ public class NPCManager : MonoBehaviour
         return false;
     }
 	
-	public void PreLevelLoad(int level) {
+	public void PreLevelLoad() {
 		NPCs = new List<NPC>();
 
         mutationText.IntroduceMutation(currentMutation);
