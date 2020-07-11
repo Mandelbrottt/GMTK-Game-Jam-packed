@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2eac2b00e29294a95285f6847eba62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
+  moveSpeed: 9
   roundStartInvincibilityTime: 1
   invincibleMaterial: {fileID: 2100000, guid: 953fc31805c88604d8e45042e974f4c2, type: 2}
   standardMaterial: {fileID: 2100000, guid: 459a6415707fd1449be03c4eabd11755, type: 2}
