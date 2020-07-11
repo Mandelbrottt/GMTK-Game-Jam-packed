@@ -18,15 +18,18 @@ public class PlayerManager : MonoBehaviour
 
 	private NPCManager m_npcManager;
 
+	[SerializeField]
+	private GameObject gameOverMenu = null;
+
 	private void Start()
 	{ 
 		m_npcManager = FindObjectOfType<NPCManager>();
 		
-		m_npcManager.OnLastInfectedDied.AddListener(PlayerWins);
+		m_npcManager.onLastInfectedDied.AddListener(PlayerWins);
 
 		// TEMPORARY
-		onPlayerSurvived.AddListener(() => { SceneManager.LoadScene("Menu"); });
-		onPlayerInfected.AddListener(() => { SceneManager.LoadScene("Gameplay"); });
+		//onPlayerSurvived.AddListener(() => { SceneManager.LoadScene("Menu"); });
+		//onPlayerInfected.AddListener(() => { SceneManager.LoadScene("Gameplay"); });
 	}
 
 	public void RegisterPlayer(Player player) {
@@ -39,8 +42,7 @@ public class PlayerManager : MonoBehaviour
 		if (numLives > 0) {
 			StartCoroutine(PlayerEvent(onPlayerInfected));
 		} else {
-			var gameOverPanel = GameObject.Find("GameOverMenu");
-			gameOverPanel.SetActive(true);
+			gameOverMenu.SetActive(true);
 		}
 	}
 

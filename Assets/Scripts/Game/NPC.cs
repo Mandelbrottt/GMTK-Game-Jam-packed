@@ -21,7 +21,7 @@ public class NPC : MonoBehaviour
     float m_TimeTillDeathCountdown;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_MeshRenderer = GetComponent<MeshRenderer>();
         m_RigidBody    = GetComponent<Rigidbody>();
