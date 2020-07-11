@@ -12,11 +12,13 @@ public class LevelManager : MonoBehaviour {
 	public List<GameObject> levels;
 	public int startingLevelIndex = 0;
 	
-	public UnityEvent onPreLevelLoadEvent;
+	public UnityEvent<int> onPreLevelLoadEvent;
 	public UnityEvent onPostLevelLoadEvent;
 
 	private int m_currentLevelIndex;
 	private GameObject m_currentLevel;
+
+	private int m_numLevelsPassed = 0;
 	
 	private void Start() {
 		LoadLevelPrefabs("Prefabs/Levels");
@@ -31,7 +33,10 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	private void GenerateNewLevel(bool reset) {
-		onPreLevelLoadEvent?.Invoke();
+		if (!reset)
+			m_numLevelsPassed++;
+
+		onPreLevelLoadEvent?.Invoke(m_numLevelsPassed);
 		
 		Destroy(m_currentLevel);
 
