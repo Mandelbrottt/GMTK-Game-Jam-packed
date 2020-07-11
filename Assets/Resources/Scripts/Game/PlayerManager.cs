@@ -10,9 +10,9 @@ using UnityEngine.Serialization;
 
 public class PlayerManager : MonoBehaviour
 {
-	public int NumLives { get; private set; } = 3;
+	public int numLives = 3;
 
-	public int NumSecondsToWait { get; } = 3;
+	public int numSecondsToWait = 3;
 
 	public UnityEvent onPlayerSurvived;
 	public UnityEvent onPlayerInfected;
@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
 		
 		m_npcManager.onLastInfectedDied.AddListener(PlayerWins);
 
-		livesText.text = $"Lives: {NumLives}";
+		livesText.text = $"Lives: {numLives}";
 	}
 
 	public void RegisterPlayer(Player player) {
@@ -42,15 +42,15 @@ public class PlayerManager : MonoBehaviour
 	}
 
 	private void PlayerInfected() {
-		NumLives--;
+		numLives--;
 		m_hasPlayerDied = true;
 
-		livesText.text = $"Lives: {NumLives}";
+		livesText.text = $"Lives: {numLives}";
 
 		// Restart the level if the player dies
 		// Show the game over menu if they are out of lives
 		StartCoroutine(
-			NumLives > 0
+			numLives > 0
 				? PlayerEvent(onPlayerInfected)
 				: ShowGameOverMenu()
 		);
@@ -62,13 +62,13 @@ public class PlayerManager : MonoBehaviour
 	}
 
 	private IEnumerator PlayerEvent(UnityEvent handler) {
-		yield return new WaitForSeconds(NumSecondsToWait);
+		yield return new WaitForSeconds(numSecondsToWait);
 
 		handler?.Invoke();
 	}
 
 	private IEnumerator ShowGameOverMenu() {
-		yield return new WaitForSeconds(NumSecondsToWait);
+		yield return new WaitForSeconds(numSecondsToWait);
 
 		gameOverMenu.SetActive(true);
 	}

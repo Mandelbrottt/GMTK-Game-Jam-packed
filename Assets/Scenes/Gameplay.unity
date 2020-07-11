@@ -1485,6 +1485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49ba2d801c51ec46ae736066401de56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numLives: 5
+  numSecondsToWait: 3
   onPlayerSurvived:
     m_PersistentCalls:
       m_Calls: []
