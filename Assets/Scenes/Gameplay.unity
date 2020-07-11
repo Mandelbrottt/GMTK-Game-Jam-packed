@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 542116683}
+      - m_Target: {fileID: 538547698}
         m_MethodName: MenuButtonClickedEvent
         m_Mode: 1
         m_Arguments:
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 542116683}
+      - m_Target: {fileID: 538547698}
         m_MethodName: RetryButtonClickedEvent
         m_Mode: 1
         m_Arguments:
@@ -661,24 +661,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &542116682
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 542116684}
-  - component: {fileID: 542116683}
-  m_Layer: 0
-  m_Name: LevelManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &542116683
+--- !u!114 &538547698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -690,9 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7922170149e94f4dab14b2f09ea4116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
-  - {fileID: 4302727308797813309, guid: 5e1b151a4685096439fb43e6a06bfcbc, type: 3}
-  - {fileID: 3766276039084866749, guid: a9657d08d8c0ad84b96a7cdcdaba25ef, type: 3}
+  levels: []
   startingLevelIndex: 0
   onPreLevelLoadEvent:
     m_PersistentCalls:
@@ -722,6 +703,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &542116682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 542116684}
+  - component: {fileID: 538547698}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &542116684
 Transform:
   m_ObjectHideFlags: 0
@@ -1332,7 +1330,7 @@ MonoBehaviour:
   onPlayerInfected:
     m_PersistentCalls:
       m_Calls: []
-  gameOverMenu: {fileID: 0}
+  gameOverMenu: {fileID: 1114091453}
 --- !u!4 &1696915743
 Transform:
   m_ObjectHideFlags: 0
@@ -1416,7 +1414,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 0}
+  m_BackGroundColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
