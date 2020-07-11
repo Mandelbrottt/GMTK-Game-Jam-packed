@@ -1002,8 +1002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ea761abae50f74bb26264358a33a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMutation: 4
-  OnLastInfectedDied:
+  currentMutation: 2
   onLastInfectedDied:
     m_PersistentCalls:
       m_Calls: []

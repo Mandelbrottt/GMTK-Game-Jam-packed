@@ -62,7 +62,7 @@ public class NPCManager : MonoBehaviour
         if (currentMutation == InfectedMutations.moreStartInfected)
 		    SetRandomInfectedNPC(6);
         else
-            SetRandomInfectedNPC(0);
+            SetRandomInfectedNPC();
     }
 
     void SetRandomInfectedNPC(int a_NumNPCsToInfect = 1)
