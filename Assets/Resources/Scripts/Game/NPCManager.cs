@@ -28,7 +28,7 @@ public class NPCManager : MonoBehaviour
 
     // Start is called before the first frame update
 	private void Awake() {
-		var levelManager = FindObjectOfType<LevelManager>();
+		
 	}
 
     public void RegisterNPC(NPC a_NPC)
