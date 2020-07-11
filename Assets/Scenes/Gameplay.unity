@@ -1331,7 +1331,7 @@ MonoBehaviour:
   onPlayerInfected:
     m_PersistentCalls:
       m_Calls: []
-  m_gameOverMenu: {fileID: 1114091453}
+  gameOverMenu: {fileID: 0}
 --- !u!4 &1696915743
 Transform:
   m_ObjectHideFlags: 0

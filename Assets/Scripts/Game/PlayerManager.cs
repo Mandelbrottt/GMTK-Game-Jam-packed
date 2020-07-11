@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
 	private NPCManager m_npcManager;
 
 	[SerializeField]
-	private GameObject m_gameOverMenu;
+	private GameObject gameOverMenu = null;
 
 	private void Start()
 	{ 
@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviour
 		if (numLives > 0) {
 			StartCoroutine(PlayerEvent(onPlayerInfected));
 		} else {
-			m_gameOverMenu.SetActive(true);
+			gameOverMenu.SetActive(true);
 		}
 	}
 
