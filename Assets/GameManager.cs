@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	private void Update() {
-		if (m_npcManager.numAliveNPCs == 0 || m_player.gameObject == null) {
+		if (!m_npcManager.AreThereAnyInfectedNPCs() || m_player.gameObject == null) {
 			StartCoroutine(LoadMenuAsync());
 		}
 	}
