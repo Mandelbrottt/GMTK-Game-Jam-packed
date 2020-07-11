@@ -25,6 +25,8 @@ public class PlayerManager : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI livesText = null;
 
+	private bool m_hasPlayerDied = false;
+
 	private void Start()
 	{ 
 		m_npcManager = FindObjectOfType<NPCManager>();
@@ -35,11 +37,13 @@ public class PlayerManager : MonoBehaviour
 	}
 
 	public void RegisterPlayer(Player player) {
+		m_hasPlayerDied = false;
 		player.OnPlayerInfected.AddListener(PlayerInfected);
 	}
 
 	private void PlayerInfected() {
 		NumLives--;
+		m_hasPlayerDied = true;
 
 		livesText.text = $"Lives: {NumLives}";
 
@@ -52,8 +56,9 @@ public class PlayerManager : MonoBehaviour
 		);
 	}
 
-	private void PlayerWins() {
-		StartCoroutine(PlayerEvent(onPlayerSurvived));
+	private void PlayerWins() { 
+		if (!m_hasPlayerDied)
+			StartCoroutine(PlayerEvent(onPlayerSurvived));
 	}
 
 	private IEnumerator PlayerEvent(UnityEvent handler) {
