@@ -12,7 +12,7 @@ public enum InfectedMutations
     biggerSize,
     surviveLonger,
     moreStartInfected,
-    leavesZoneAfterDeath,
+    leavesAoeAfterDeath,
     explodeAfterDeath,
     splitsIntoTwoUponDeath
 }
@@ -58,12 +58,14 @@ public class NPCManager : MonoBehaviour
 		NPCs = new List<NPC>();
     }
 
-    void SetRandomInfectedNPC(int a_NumNPCsToInfect = 1)
     public void PostLevelLoad() {
-		SetRandomInfectedNPC();
-	}
+        if (currentMutation == InfectedMutations.moreStartInfected)
+		    SetRandomInfectedNPC(6);
+        else
+            SetRandomInfectedNPC(0);
+    }
 
-    private void SetRandomInfectedNPC()
+    void SetRandomInfectedNPC(int a_NumNPCsToInfect = 1)
     {
         for (int i = 0; i < a_NumNPCsToInfect; i++)
         {
