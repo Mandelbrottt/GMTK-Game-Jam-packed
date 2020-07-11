@@ -50,6 +50,9 @@ public class MutationText : MonoBehaviour
     {
         m_MutationTitle       = GetComponent<TMP_Text>();
         m_MutationDescription = mutationDescription.GetComponent<TMP_Text>();
+		
+		textStartPosition = new Vector3(Screen.width / 2f, Screen.height / 2f + m_MutationTitle.fontSize * 3, 0);
+		textEndPosition   = new Vector3(Screen.width / 2f, Screen.height, 0);
     }
 
     // Update is called once per frame
@@ -73,7 +76,7 @@ public class MutationText : MonoBehaviour
 
         m_InterpolationParam = 0f;
 
-        transform.position   = textStartPosition;
+        transform.position = textStartPosition;
         transform.localScale = textStartScale;
 
         m_MutationTitle.text = "Mutation: ";

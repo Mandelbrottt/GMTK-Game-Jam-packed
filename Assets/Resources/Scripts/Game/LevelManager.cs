@@ -17,7 +17,9 @@ public class LevelManager : MonoBehaviour {
 
 	private int m_currentLevelIndex;
 	private GameObject m_currentLevel;
-	
+
+	public int NumLevelsPassed { get; private set; } = 0;
+
 	private void Start() {
 		LoadLevelPrefabs("Prefabs/Levels");
 		
@@ -31,6 +33,9 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	private void GenerateNewLevel(bool reset) {
+		if (!reset)
+			NumLevelsPassed++;
+
 		onPreLevelLoadEvent?.Invoke();
 		
 		Destroy(m_currentLevel);
