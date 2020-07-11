@@ -47,9 +47,16 @@ public class NPCManager : MonoBehaviour
         return false;
     }
 
-    void SetRandomInfectedNPC()
+    void SetRandomInfectedNPC(int a_NumNPCsToInfect = 1)
     {
-        int randomNPCIndex = Random.Range(0, NPCs.Count);
-        NPCs[randomNPCIndex].OnInfected();
+        for (int i = 0; i < a_NumNPCsToInfect; i++)
+        {
+            int randomNPCIndex = Random.Range(0, NPCs.Count);
+
+            if (NPCs[randomNPCIndex].isInfected)
+                i--;
+            else
+                NPCs[randomNPCIndex].OnInfected();
+        }
     }
 }
