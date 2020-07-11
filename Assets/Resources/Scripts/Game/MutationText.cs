@@ -80,6 +80,11 @@ public class MutationText : MonoBehaviour
 
         switch (a_Mutation)
         {
+            case InfectedMutations.none:
+                m_MutationTitle.text       = string.Empty;
+                m_MutationDescription.text = string.Empty;
+                break;
+
             case InfectedMutations.moveFaster:
                 m_MutationTitle.text      += moveFasterTitle;
                 m_MutationDescription.text = moveFasterDescription;

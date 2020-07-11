@@ -1000,7 +1000,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ea761abae50f74bb26264358a33a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMutation: 2
+  currentMutation: 1
+  mutationText: {fileID: 2147382936}
   onLastInfectedDied:
     m_PersistentCalls:
       m_Calls: []
@@ -1193,7 +1194,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Infected are larger
+  m_text: Mutation Description
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1221,14 +1222,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 258
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -1259,13 +1260,13 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -120.76709, w: 0}
+  m_margin: {x: -43.45912, y: 0, z: -168.34845, w: 0}
   m_textInfo:
     textComponent: {fileID: 1494652989}
-    characterCount: 19
+    characterCount: 20
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -1670,9 +1671,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mutationDescription: {fileID: 1494652987}
-  durationInMiddleOfScreen: 2.5
-  textStartPosition: {x: -59, y: 45, z: 0}
-  textEndPosition: {x: -59, y: 221, z: 0}
+  durationInMiddleOfScreen: 2
+  textStartPosition: {x: 350, y: 250, z: 0}
+  textEndPosition: {x: 400, y: 470, z: 0}
   textStartScale: {x: 2, y: 2, z: 1}
   textEndScale: {x: 1, y: 1, z: 1}
   moveFasterTitle: Adrenaline
@@ -1688,7 +1689,7 @@ MonoBehaviour:
   explodesAfterDeathTitle: Boomer
   explodesAfterDeathDescription: Infected explode on death
   splitsIntoTwoUponDeathTitle: Mitosis
-  splitsIntoTwoUponDeathDescription: Some infected split into two on death
+  splitsIntoTwoUponDeathDescription: Infected may divide on death
 --- !u!114 &2147382937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1708,7 +1709,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Mutation: Embiggen'
+  m_text: 'Mutation: Title
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1743,7 +1746,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 258
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -1774,12 +1777,12 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -129.05396, w: 0}
+  m_margin: {x: -44.357513, y: 0, z: -166.75946, w: 0}
   m_textInfo:
     textComponent: {fileID: 2147382937}
-    characterCount: 18
+    characterCount: 16
     spriteCount: 0
-    spaceCount: 1
+    spaceCount: 2
     wordCount: 2
     linkCount: 0
     lineCount: 1
