@@ -49,7 +49,7 @@ public class NPCManager : MonoBehaviour
     {
         foreach (NPC npc in NPCs)
         {
-            if (npc.isInfected)
+            if (npc.isInfected && npc.isAlive)
                 return true;
         }
 
