@@ -69,7 +69,7 @@ public class NPCManager : MonoBehaviour
     {
         for (int i = 0; i < a_NumNPCsToInfect; i++)
         {
-            int randomNPCIndex = Random.Range(0, NPCs.Count);
+            int randomNPCIndex = Random.Range(0, NPCs.Count - 1);
 
             if (NPCs[randomNPCIndex].isInfected)
                 i--;
