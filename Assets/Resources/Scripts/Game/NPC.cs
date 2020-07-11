@@ -23,7 +23,7 @@ public class NPC : MonoBehaviour
     float m_TimeTillDeathCountdown;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_MeshRenderer = GetComponent<MeshRenderer>();
         m_RigidBody    = GetComponent<Rigidbody>();
@@ -62,6 +62,21 @@ public class NPC : MonoBehaviour
         Instantiate(infectPrefab, this.transform.position, this.transform.rotation);
         m_TimeTillDeathCountdown = infectedLifeTime;
         m_MeshRenderer.material  = infectedMaterial;
+
+        switch (m_NPCManager.currentMutation)
+        {
+            case InfectedMutations.biggerSize:
+                transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+                break;
+
+            case InfectedMutations.moveFaster:
+                moveSpeed += 2.5f;
+                break;
+
+            case InfectedMutations.surviveLonger:
+                m_TimeTillDeathCountdown += 6f;
+                break;
+        }
     }
 
     void OnDie()
