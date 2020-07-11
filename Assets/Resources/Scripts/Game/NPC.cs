@@ -8,10 +8,13 @@ public class NPC : MonoBehaviour
 
     public Material healthyMaterial;
     public Material infectedMaterial;
+    public Material infectedPuddleMaterial;
     public GameObject explodePrefab;
     public GameObject infectPrefab;
 
     public float infectedLifeTime;
+
+    public bool isAlive;
 
     public bool isInfected { get; private set; }
 
@@ -37,6 +40,8 @@ public class NPC : MonoBehaviour
         Vector2 moveDir   = Random.insideUnitCircle.normalized;
         Vector3 moveForce = new Vector3(moveDir.x, moveDir.y, 0f) * moveSpeed;
         m_RigidBody.AddForce(moveForce, ForceMode.Impulse);
+
+        isAlive = true;
     }
 
     // Update is called once per frame
@@ -89,6 +94,11 @@ public class NPC : MonoBehaviour
 
     void OnDie()
     {
+        if (!isAlive)
+            return;
+
+        isAlive = false;
+
         m_NPCManager.UnregisterNPC(this);
 		{
 			// Create the particle for an npc dying then destroy it after the particle has ended
@@ -97,7 +107,27 @@ public class NPC : MonoBehaviour
 			var ps         = infect.GetComponentInChildren<ParticleSystem>();
 			Destroy(infect, ps.main.duration * 2);
 		}
-		Destroy(gameObject);
+
+        switch (m_NPCManager.currentMutation)
+        {
+            case InfectedMutations.leavesAoeAfterDeath:
+                m_MeshRenderer.material = infectedPuddleMaterial;
+                moveSpeed = 0f;
+                transform.localScale = new Vector3(1.9f, 1.9f, 1f);
+                break;
+
+            case InfectedMutations.explodeAfterDeath:
+
+                break;
+
+            case InfectedMutations.splitsIntoTwoUponDeath:
+
+                break;
+
+            default:
+                Destroy(gameObject);
+                break;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
