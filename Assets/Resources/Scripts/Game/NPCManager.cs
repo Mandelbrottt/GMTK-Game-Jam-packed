@@ -63,14 +63,15 @@ public class NPCManager : MonoBehaviour
         var levelManager = FindObjectOfType<LevelManager>();
         int nextLevelNum = levelManager.NumLevelsPassed + 1;
 
-        if (nextLevelNum == m_LevelNum) //check for replayed level
+        //if (nextLevelNum == m_LevelNum) //check for replayed level
         { }
-        else if (nextLevelNum == 2 || nextLevelNum == 4 || nextLevelNum == 5 || nextLevelNum >= 7)
+        //else if (nextLevelNum == 2 || nextLevelNum == 4 || nextLevelNum == 5 || nextLevelNum >= 7)
         {
-            currentMutation = (InfectedMutations)Random.Range(1, 7); //set a random mutation
+            //currentMutation = (InfectedMutations)Random.Range(1, 7); //set a random mutation
+            currentMutation = InfectedMutations.splitsIntoTwoUponDeath;
         }
-        else
-            currentMutation = InfectedMutations.none;
+        //else
+            //currentMutation = InfectedMutations.none;
 
         m_LevelNum = nextLevelNum;
 

@@ -159,8 +159,14 @@ public class NPC : MonoBehaviour
                 NPC1.isSplitChild = true;
                 NPC2.isSplitChild = true;
 
+                NPC1.isAlive = true;
+                NPC2.isAlive = true;
+
                 NPC1.OnInfected();
                 NPC2.OnInfected();
+
+                m_NPCManager.RegisterNPC(NPC1);
+                m_NPCManager.RegisterNPC(NPC2);
 
                 Destroy(gameObject);
 
