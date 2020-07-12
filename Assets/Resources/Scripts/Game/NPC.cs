@@ -70,7 +70,7 @@ public class NPC : MonoBehaviour
 		{
 			// Create the particle for infecting an npc then destroy it after it's dead
 			var transform1 = transform;
-			var infect     = Instantiate(infectPrefab, transform1.position, transform1.rotation);
+            var infect     = Instantiate(infectPrefab, transform1.position + new Vector3(0f, 0f, -1f), transform1.rotation);
 			var ps         = infect.GetComponent<ParticleSystem>();
 			Destroy(infect, ps.main.duration);
 		}
@@ -106,8 +106,8 @@ public class NPC : MonoBehaviour
         {
             // Create the particle for an npc dying then destroy it after the particle has ended
             var transform1 = transform;
-            var infect = Instantiate(explodePrefab, transform1.position, transform1.rotation);
-            var ps = infect.GetComponentInChildren<ParticleSystem>();
+            var infect     = Instantiate(explodePrefab, transform1.position + new Vector3(0f, 0f, -1f), transform1.rotation);
+            var ps         = infect.GetComponentInChildren<ParticleSystem>();
             Destroy(infect, ps.main.duration * 2);
         }
 
