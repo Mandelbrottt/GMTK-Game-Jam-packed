@@ -72,7 +72,10 @@ public class NPC : MonoBehaviour
 			var transform1 = transform;
             var infect     = Instantiate(infectPrefab, transform1.position + new Vector3(0f, 0f, -1f), transform1.rotation);
 			var ps         = infect.GetComponent<ParticleSystem>();
-			Destroy(infect, ps.main.duration);
+
+            infect.transform.parent = transform.parent;
+
+            Destroy(infect, ps.main.duration);
 		}
         m_TimeTillDeathCountdown = infectedLifeTime;
         m_MeshRenderer.material  = infectedMaterial;
@@ -108,6 +111,9 @@ public class NPC : MonoBehaviour
             var transform1 = transform;
             var infect     = Instantiate(explodePrefab, transform1.position + new Vector3(0f, 0f, -1f), transform1.rotation);
             var ps         = infect.GetComponentInChildren<ParticleSystem>();
+
+            infect.transform.parent = transform.parent;
+
             Destroy(infect, ps.main.duration * 2);
         }
 
