@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerStandard
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_Name: InfectedPuddle
+  m_Shader: {fileID: 4800000, guid: 341e7da636ec236428a6c71711a88764, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -60,18 +60,23 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 0.584
-    - _Glossiness: 0.5
+    - _GlossMapScale: 1
+    - _Glossiness: 6.55
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SmoothnessTextureChannel: 1
+    - _RimAmount: 1
+    - _RimThreshold: 0
+    - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.129539, g: 0.38679248, b: 0.17913006, a: 1}
+    - _AmbientColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.4433962, g: 0.035555363, b: 0.035555363, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
