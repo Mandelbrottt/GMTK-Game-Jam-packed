@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.IO.IsolatedStorage;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -50,6 +51,8 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
+        m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, m_RigidBody.velocity.y, 1.235192f);
+
         Vector2 moveDir = Vector3.Normalize(m_RigidBody.velocity);
         m_RigidBody.velocity = moveDir * moveSpeed;
 
@@ -83,7 +86,7 @@ public class NPC : MonoBehaviour
         switch (m_NPCManager.currentMutation)
         {
             case InfectedMutations.biggerSize:
-                transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+                transform.localScale = new Vector3(1.6f, 1.6f, 1f);
                 break;
 
             case InfectedMutations.moveFaster:
@@ -105,7 +108,8 @@ public class NPC : MonoBehaviour
 
         isAlive = false;
 
-        m_NPCManager.UnregisterNPC(this);
+        bool destroyThis = false;
+
         {
             // Create the particle for an npc dying then destroy it after the particle has ended
             var transform1 = transform;
@@ -122,13 +126,13 @@ public class NPC : MonoBehaviour
             case InfectedMutations.leavesAoeAfterDeath:
                 m_MeshRenderer.material = infectedPuddleMaterial;
                 moveSpeed = 0f;
-                transform.localScale = new Vector3(1.9f, 1.9f, 1f);
+                transform.localScale = new Vector3(2.2f, 2.2f, 1f);
                 break;
 
             case InfectedMutations.splitsIntoTwoUponDeath:
                 if (isSplitChild || Random.value >= 0.5f)
-                { 
-                    Destroy(gameObject);
+                {
+                    destroyThis = true;
                     break;
                 }
 
@@ -159,23 +163,24 @@ public class NPC : MonoBehaviour
                 NPC1.isSplitChild = true;
                 NPC2.isSplitChild = true;
 
-                NPC1.isAlive = true;
-                NPC2.isAlive = true;
+                m_NPCManager.RegisterNPC(NPC1);
+                m_NPCManager.RegisterNPC(NPC2);
 
                 NPC1.OnInfected();
                 NPC2.OnInfected();
 
-                m_NPCManager.RegisterNPC(NPC1);
-                m_NPCManager.RegisterNPC(NPC2);
-
-                Destroy(gameObject);
+                destroyThis = true;
 
                 break;
 
             default:
-                Destroy(gameObject);
+                destroyThis = true;
                 break;
         }
+
+        m_NPCManager.UnregisterNPC(this);
+        if (destroyThis)
+            Destroy(gameObject);
     }
 
     void OnCollisionEnter(Collision collision)

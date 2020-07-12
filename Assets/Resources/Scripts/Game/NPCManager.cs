@@ -32,16 +32,28 @@ public class NPCManager : MonoBehaviour
 		FindObjectOfType<MutationText>().onLevelStart.AddListener(PostLevelLoad);
 	}
 
+    private void Update()
+    {
+        for (int i = 0; i < NPCs.Count; i++)
+        {
+            if (!NPCs[i])
+            {
+                UnregisterNPC(NPCs[i], false);
+                i--;
+            }
+        }
+    }
+
     public void RegisterNPC(NPC a_NPC)
     {
         NPCs.Add(a_NPC);
 	}
 
-    public void UnregisterNPC(NPC a_NPC)
+    public void UnregisterNPC(NPC a_NPC, bool checkForLastAlive = true)
     {
         NPCs.Remove(a_NPC);
 
-		if (!AreThereAnyInfectedNPCs()) {
+		if (checkForLastAlive && !AreThereAnyInfectedNPCs()) {
 			onLastInfectedDied?.Invoke();
 		}
     }
