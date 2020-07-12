@@ -13,7 +13,6 @@ public enum InfectedMutations
     surviveLonger,
     moreStartInfected,
     leavesAoeAfterDeath,
-    explodeAfterDeath,
     splitsIntoTwoUponDeath
 }
 
@@ -21,18 +20,22 @@ public class NPCManager : MonoBehaviour
 { 
     public List<NPC> NPCs { get; private set; }
     public InfectedMutations currentMutation = InfectedMutations.none;
+
+    public MutationText mutationText;
 	
 	public UnityEvent onLastInfectedDied;
 
+    int m_LevelNum;
+
     // Start is called before the first frame update
 	private void Awake() {
-		var levelManager = FindObjectOfType<LevelManager>();
+		FindObjectOfType<MutationText>().onLevelStart.AddListener(PostLevelLoad);
 	}
 
     public void RegisterNPC(NPC a_NPC)
     {
         NPCs.Add(a_NPC);
-    }
+	}
 
     public void UnregisterNPC(NPC a_NPC)
     {
@@ -47,7 +50,7 @@ public class NPCManager : MonoBehaviour
     {
         foreach (NPC npc in NPCs)
         {
-            if (npc.isInfected)
+            if (npc.isInfected && npc.isAlive)
                 return true;
         }
 
@@ -55,7 +58,23 @@ public class NPCManager : MonoBehaviour
     }
 	
 	public void PreLevelLoad() {
-		NPCs = new List<NPC>();
+        NPCs = new List<NPC>();
+
+        var levelManager = FindObjectOfType<LevelManager>();
+        int nextLevelNum = levelManager.NumLevelsPassed + 1;
+
+        if (nextLevelNum == m_LevelNum) //check for replayed level
+        { }
+        else if (nextLevelNum == 2 || nextLevelNum == 4 || nextLevelNum == 5 || nextLevelNum >= 7)
+        {
+            currentMutation = (InfectedMutations)Random.Range(1, 7); //set a random mutation
+        }
+        else
+            currentMutation = InfectedMutations.none;
+
+        m_LevelNum = nextLevelNum;
+
+        mutationText.IntroduceMutation(currentMutation);
     }
 
     public void PostLevelLoad() {
@@ -69,7 +88,7 @@ public class NPCManager : MonoBehaviour
     {
         for (int i = 0; i < a_NumNPCsToInfect; i++)
         {
-            int randomNPCIndex = Random.Range(0, NPCs.Count - 1);
+            int randomNPCIndex = Random.Range(0, NPCs.Count);
 
             if (NPCs[randomNPCIndex].isInfected)
                 i--;
