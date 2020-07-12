@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels: []
-  startingLevelIndex: 0
+  startingLevelIndex: 5
   onPreLevelLoadEvent:
     m_PersistentCalls:
       m_Calls:
