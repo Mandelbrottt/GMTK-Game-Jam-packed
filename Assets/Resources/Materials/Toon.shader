@@ -1,4 +1,7 @@
-﻿Shader "Roystan/Toon"
+﻿//Shader base done by Roystan
+//Additional code done for the GMTK Game Jam 2020
+
+Shader "Roystan/Toon"
 {
 	Properties
 	{
@@ -129,7 +132,7 @@
 
 				float4 sample = tex2D(_MainTex, i.uv);
 
-				if (rimIntensity >= 0.1)
+				if (rimIntensity >= 0.1) //Instead of rim lighting, here I'm using the rim as an "outline" for the toon effect
 				{
 					float4 rim = rimIntensity * _RimColor;
 					return rim;
