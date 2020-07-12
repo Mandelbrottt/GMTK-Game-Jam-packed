@@ -20,17 +20,20 @@ public class Player : MonoBehaviour
     float m_InvincibilityCountdown;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_MeshRenderer = GetComponent<MeshRenderer>();
         m_RigidBody    = GetComponent<Rigidbody>();
 
         movement.z  = 0f;
-
-        OnRoundStart();
+        
+		OnRoundStart();
 
 		var playerManager = FindObjectOfType<PlayerManager>();
 		playerManager.RegisterPlayer(this);
+
+		FindObjectOfType<MutationText>()
+		   .onLevelStart.AddListener(() => enabled = true);
 	}
 
     // Update is called once per frame

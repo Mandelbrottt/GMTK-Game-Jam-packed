@@ -25,6 +25,13 @@ public class PlayerManager : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI livesText = null;
 
+	[SerializeField]
+	private TextMeshProUGUI mutationText = null;
+
+	[SerializeField]
+	private TextMeshProUGUI roundNumberText = null;
+
+	[SerializeField]
 	private bool m_hasPlayerDied = false;
 
 	private void Start()
@@ -71,5 +78,11 @@ public class PlayerManager : MonoBehaviour
 		yield return new WaitForSeconds(numSecondsToWait);
 
 		gameOverMenu.SetActive(true);
+		
+		mutationText.gameObject.SetActive(false);
+		livesText.gameObject.SetActive(false);
+
+		int rounds = FindObjectOfType<LevelManager>().NumLevelsPassed;
+		roundNumberText.text = $"You survived {rounds} rounds!";
 	}
 }
