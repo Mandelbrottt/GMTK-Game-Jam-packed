@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1994005746952260060}
   - component: {fileID: 1994005746952260035}
   - component: {fileID: 1994005746952260032}
+  - component: {fileID: 2804312664710269023}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -125,8 +126,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 9
   roundStartInvincibilityTime: 1.2
+  deathParticle: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+    type: 3}
   invincibleMaterial: {fileID: 2100000, guid: 953fc31805c88604d8e45042e974f4c2, type: 2}
   standardMaterial: {fileID: 2100000, guid: 459a6415707fd1449be03c4eabd11755, type: 2}
+  infectedMaterial: {fileID: 2100000, guid: 5eda6ae21c89eef48aa4e3e2bc1474a6, type: 2}
   OnPlayerInfected:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &2804312664710269023
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994005746952260062}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81eec603fb5e3804c971de82457edf28, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

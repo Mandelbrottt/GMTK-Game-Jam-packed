@@ -7,8 +7,11 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     public float roundStartInvincibilityTime;
 
+    public GameObject deathParticle;
+
     public Material invincibleMaterial;
     public Material standardMaterial;
+    public Material infectedMaterial;
 
 	public UnityEvent OnPlayerInfected;
 
@@ -75,8 +78,8 @@ public class Player : MonoBehaviour
 
     private void OnInfected()
     {
-		OnPlayerInfected?.Invoke();
-		
         Destroy(gameObject);
+		OnPlayerInfected?.Invoke();
+        Instantiate(deathParticle, this.transform.position, this.transform.rotation);
 	}
 }
