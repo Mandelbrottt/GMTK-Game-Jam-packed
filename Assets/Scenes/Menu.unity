@@ -2003,6 +2003,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3480126960875592251, guid: fc4d8e84a0c4c664c9cecabd20971007,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4411657601007662834, guid: fc4d8e84a0c4c664c9cecabd20971007,
         type: 3}
       propertyPath: m_Name

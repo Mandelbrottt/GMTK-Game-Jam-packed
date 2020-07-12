@@ -11,6 +11,8 @@ using Random = UnityEngine.Random;
 public class LevelManager : MonoBehaviour { 
 	public List<GameObject> levels;
 	public int startingLevelIndex = 0;
+
+	public GameObject pauseMenu;
 	
 	public UnityEvent onPreLevelLoadEvent;
 	public UnityEvent onPostLevelLoadEvent;
@@ -36,6 +38,22 @@ public class LevelManager : MonoBehaviour {
 		   .onLevelStart.AddListener(() => onLevelStartEvent?.Invoke());
 	}
 
+	private void OnDisable() {
+		Time.timeScale = 1;
+	}
+
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			if (!pauseMenu.activeSelf) {
+				pauseMenu.SetActive(true);
+
+				Time.timeScale = 0;
+			} else {
+				ResumeButtonClickedEvent();
+			}
+		}
+	}
+	
 	private void GenerateNewLevel(bool reset) {
 		if (!reset)
 			NumLevelsPassed++;
@@ -77,8 +95,14 @@ public class LevelManager : MonoBehaviour {
 		StartCoroutine(LoadSceneAsync("Gameplay"));
 	}
 	
-	public void MenuButtonClickedEvent() {
+	public void MenuButtonClickedEvent() { 
 		StartCoroutine(LoadSceneAsync("Menu"));
+	}
+
+	public void ResumeButtonClickedEvent() {
+		pauseMenu.SetActive(false);
+
+		Time.timeScale = 1;
 	}
 
 	private IEnumerator LoadSceneAsync(string scene) {
