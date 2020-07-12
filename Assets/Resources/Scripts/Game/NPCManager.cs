@@ -63,7 +63,7 @@ public class NPCManager : MonoBehaviour
         var levelManager = FindObjectOfType<LevelManager>();
         int nextLevelNum = levelManager.NumLevelsPassed + 1;
 
-        if (nextLevelNum == m_LevelNum && nextLevelNum != 1) //check for replayed level
+        if (nextLevelNum == m_LevelNum) //check for replayed level
         { }
         else if (nextLevelNum == 2 || nextLevelNum == 4 || nextLevelNum == 5 || nextLevelNum >= 7)
         {
