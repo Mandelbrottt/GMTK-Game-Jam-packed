@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NPCInfected
+  m_Name: InfectedPuddle
   m_Shader: {fileID: 4800000, guid: 341e7da636ec236428a6c71711a88764, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -67,7 +67,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RimAmount: 0.525
+    - _RimAmount: 1
     - _RimThreshold: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -76,7 +76,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _AmbientColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Color: {r: 0.9339623, g: 0.118948035, b: 0.118948035, a: 1}
+    - _Color: {r: 0.4433962, g: 0.035555363, b: 0.035555363, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
