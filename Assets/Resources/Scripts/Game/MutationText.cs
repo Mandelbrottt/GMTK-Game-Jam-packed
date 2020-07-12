@@ -1,16 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class MutationText : MonoBehaviour
-{
+public class MutationText : MonoBehaviour {
+	public UnityEvent onLevelStart;
+	
     [Header("Mutation Text Settings")]
     public GameObject mutationDescription;
     public float durationInMiddleOfScreen;
 
-    public Vector3 textStartPosition;
-    public Vector3 textEndPosition;
+    private Vector3 m_textStartPosition;
+    private Vector3 m_textEndPosition;
 
     public Vector3 textStartScale;
     public Vector3 textEndScale;
@@ -42,14 +45,13 @@ public class MutationText : MonoBehaviour
 
     float m_MiddleOfScreenCountdown;
 
+	private bool m_hasLevelStarted = false;
+
     // Start is called before the first frame update
     void Awake()
     {
         m_MutationTitle       = GetComponent<TMP_Text>();
         m_MutationDescription = mutationDescription.GetComponent<TMP_Text>();
-		
-		textStartPosition = new Vector3(Screen.width / 2f, Screen.height / 2f + m_MutationTitle.fontSize * 3, 0);
-		textEndPosition   = new Vector3(Screen.width / 2f, Screen.height, 0);
     }
 
     // Update is called once per frame
@@ -57,23 +59,40 @@ public class MutationText : MonoBehaviour
     {
         m_MiddleOfScreenCountdown -= Time.deltaTime;
 
-        if (m_MiddleOfScreenCountdown < 0f && m_InterpolationParam < 1f)
+		m_textStartPosition = new Vector3(Screen.width / 2f, Screen.height / 2f + m_MutationTitle.fontSize * 3, 0);
+		m_textEndPosition   = new Vector3(Screen.width / 2f, Screen.height, 0);
+
+        if (m_MutationTitle.text == String.Empty && !m_hasLevelStarted) {
+			m_hasLevelStarted = true;
+
+			onLevelStart?.Invoke();
+        }
+        else if (m_MiddleOfScreenCountdown >= 0f)
+			return;
+		
+		if (m_InterpolationParam < 1f)
         {
             m_InterpolationParam += m_InterpolationSpeed * Time.deltaTime;
             Mathf.Min(m_InterpolationParam, 1f);
 
-            transform.position   = Vector3.Lerp(textStartPosition, textEndPosition, m_InterpolationParam);
+			transform.position   = Vector3.Lerp(m_textStartPosition, m_textEndPosition, m_InterpolationParam);
             transform.localScale = Vector3.Lerp(textStartScale,    textEndScale,    m_InterpolationParam);
         }
+		else if (!m_hasLevelStarted) {
+			m_hasLevelStarted = true;
+
+			onLevelStart?.Invoke();
+		}
     }
 
-    public void IntroduceMutation(InfectedMutations a_Mutation)
-    {
+    public void IntroduceMutation(InfectedMutations a_Mutation) {
+		m_hasLevelStarted = false;
+		
         m_MiddleOfScreenCountdown = durationInMiddleOfScreen;
 
         m_InterpolationParam = 0f;
 
-        transform.position = textStartPosition;
+        transform.position = m_textStartPosition;
         transform.localScale = textStartScale;
 
         m_MutationTitle.text = "Mutation: ";
@@ -116,4 +135,6 @@ public class MutationText : MonoBehaviour
                 break;
         }
     }
+	
+	
 }

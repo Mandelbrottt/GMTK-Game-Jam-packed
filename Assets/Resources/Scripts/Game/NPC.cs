@@ -36,20 +36,18 @@ public class NPC : MonoBehaviour
         m_MeshRenderer = GetComponent<MeshRenderer>();
         m_RigidBody    = GetComponent<Rigidbody>();
 
-        m_NPCManager = FindObjectOfType<NPCManager>();
+		m_MeshRenderer.material = healthyMaterial;
 
-        m_NPCManager.RegisterNPC(this);
-
-        m_MeshRenderer.material = healthyMaterial;
-
-        Vector2 moveDir   = Random.insideUnitCircle.normalized;
-        Vector3 moveForce = new Vector3(moveDir.x, moveDir.y, 0f) * moveSpeed;
-        m_RigidBody.AddForce(moveForce, ForceMode.Impulse);
-
+		var mt = FindObjectOfType<MutationText>();
+		mt.onLevelStart.AddListener(OnLevelStart);
+		
+		FindObjectOfType<LevelManager>().onPostLevelLoadEvent.AddListener(OnLevelLoad);
+        
         isAlive = true;
-    }
 
-    // Update is called once per frame
+		m_NPCManager = FindObjectOfType<NPCManager>();
+	}
+
     void Update()
     {
         Vector2 moveDir = Vector3.Normalize(m_RigidBody.velocity);
@@ -179,5 +177,15 @@ public class NPC : MonoBehaviour
             if (hitNPC.isInfected)
                 OnInfected();
         }
+    }
+
+	public void OnLevelLoad() {
+		m_NPCManager.RegisterNPC(this);
+	}
+	
+	public void OnLevelStart() {
+        Vector2 moveDir   = Random.insideUnitCircle.normalized;
+        Vector3 moveForce = new Vector3(moveDir.x, moveDir.y, 0f) * moveSpeed;
+        m_RigidBody.AddForce(moveForce, ForceMode.Impulse);
     }
 }

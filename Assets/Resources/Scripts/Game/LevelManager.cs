@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour {
 	
 	public UnityEvent onPreLevelLoadEvent;
 	public UnityEvent onPostLevelLoadEvent;
+	public UnityEvent onLevelStartEvent;
 
 	private int m_currentLevelIndex;
 	private GameObject m_currentLevel;
@@ -30,6 +31,9 @@ public class LevelManager : MonoBehaviour {
 		// Call GenerateNewLevel() with reset to avoid having to rewrite the function in Start()
 		m_currentLevelIndex = startingLevelIndex;
 		GenerateNewLevel(reset: true);
+		
+		FindObjectOfType<MutationText>()
+		   .onLevelStart.AddListener(() => onLevelStartEvent?.Invoke());
 	}
 
 	private void GenerateNewLevel(bool reset) {
@@ -43,11 +47,22 @@ public class LevelManager : MonoBehaviour {
 		if (reset) {
 			m_currentLevel = Instantiate(levels[m_currentLevelIndex]);
 		} else {
-			m_currentLevelIndex = levels.Count > 1 ? Random.Range(1, levels.Count) : 0;
+			if (levels.Count <= 1)
+				m_currentLevelIndex = 0;
+			else 
+			{
+				int newLevelIndex = m_currentLevelIndex;
+				while (newLevelIndex == m_currentLevelIndex)
+					newLevelIndex = Random.Range(1, levels.Count);
+
+				m_currentLevelIndex = newLevelIndex;
+			}
+
 			m_currentLevel = Instantiate(levels[m_currentLevelIndex]);
 		}
 
 		onPostLevelLoadEvent?.Invoke();
+		onPostLevelLoadEvent?.RemoveAllListeners();
 	}
 
 	private void PlayerInfectedEvent() {
