@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  NPCPrefab: {fileID: 7833998388698593345}
   healthyMaterial: {fileID: 2100000, guid: 1f615f0ab79419448b95022f621b8726, type: 2}
   infectedMaterial: {fileID: 2100000, guid: 5eda6ae21c89eef48aa4e3e2bc1474a6, type: 2}
   infectedPuddleMaterial: {fileID: 2100000, guid: 6b338b4ce3f6afb4b968549b2980e8e5,
@@ -134,3 +135,4 @@ MonoBehaviour:
     type: 3}
   infectedLifeTime: 10
   isAlive: 0
+  isSplitChild: 0

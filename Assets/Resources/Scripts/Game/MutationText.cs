@@ -31,9 +31,6 @@ public class MutationText : MonoBehaviour
     public string leavesAoeAfterDeathTitle;
     public string leavesAoeAfterDeathDescription;
 
-    public string explodesAfterDeathTitle;
-    public string explodesAfterDeathDescription;
-
     public string splitsIntoTwoUponDeathTitle;
     public string splitsIntoTwoUponDeathDescription;
 
@@ -111,11 +108,6 @@ public class MutationText : MonoBehaviour
             case InfectedMutations.leavesAoeAfterDeath:
                 m_MutationTitle.text      += leavesAoeAfterDeathTitle;
                 m_MutationDescription.text = leavesAoeAfterDeathDescription;
-                break;
-
-            case InfectedMutations.explodeAfterDeath:
-                m_MutationTitle.text      += explodesAfterDeathTitle;
-                m_MutationDescription.text = explodesAfterDeathDescription;
                 break;
 
             case InfectedMutations.splitsIntoTwoUponDeath:

@@ -13,7 +13,6 @@ public enum InfectedMutations
     surviveLonger,
     moreStartInfected,
     leavesAoeAfterDeath,
-    explodeAfterDeath,
     splitsIntoTwoUponDeath
 }
 
@@ -25,6 +24,8 @@ public class NPCManager : MonoBehaviour
     public MutationText mutationText;
 	
 	public UnityEvent onLastInfectedDied;
+
+    int m_LevelNum;
 
     // Start is called before the first frame update
 	private void Awake() {
@@ -57,7 +58,21 @@ public class NPCManager : MonoBehaviour
     }
 	
 	public void PreLevelLoad() {
-		NPCs = new List<NPC>();
+        NPCs = new List<NPC>();
+
+        var levelManager = FindObjectOfType<LevelManager>();
+        int nextLevelNum = levelManager.NumLevelsPassed + 1;
+
+        if (nextLevelNum == m_LevelNum && nextLevelNum != 1) //check for replayed level
+        { }
+        else if (nextLevelNum == 2 || nextLevelNum == 4 || nextLevelNum == 5 || nextLevelNum >= 7)
+        {
+            currentMutation = (InfectedMutations)Random.Range(1, 7); //set a random mutation
+        }
+        else
+            currentMutation = InfectedMutations.none;
+
+        m_LevelNum = nextLevelNum;
 
         mutationText.IntroduceMutation(currentMutation);
     }

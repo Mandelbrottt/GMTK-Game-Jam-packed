@@ -1,10 +1,13 @@
 ﻿using System.Collections.Specialized;
 using System.IO.IsolatedStorage;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class NPC : MonoBehaviour
 {
     public float moveSpeed;
+
+    public GameObject NPCPrefab;
 
     public Material healthyMaterial;
     public Material infectedMaterial;
@@ -15,6 +18,8 @@ public class NPC : MonoBehaviour
     public float infectedLifeTime;
 
     public bool isAlive;
+
+    public bool isSplitChild = false;
 
     public bool isInfected { get; private set; }
 
@@ -89,8 +94,8 @@ public class NPC : MonoBehaviour
                 break;
         }
     }
-	
-	
+
+
 
     void OnDie()
     {
@@ -100,13 +105,13 @@ public class NPC : MonoBehaviour
         isAlive = false;
 
         m_NPCManager.UnregisterNPC(this);
-		{
-			// Create the particle for an npc dying then destroy it after the particle has ended
-			var transform1 = transform;
-			var infect     = Instantiate(explodePrefab, transform1.position, transform1.rotation);
-			var ps         = infect.GetComponentInChildren<ParticleSystem>();
-			Destroy(infect, ps.main.duration * 2);
-		}
+        {
+            // Create the particle for an npc dying then destroy it after the particle has ended
+            var transform1 = transform;
+            var infect = Instantiate(explodePrefab, transform1.position, transform1.rotation);
+            var ps = infect.GetComponentInChildren<ParticleSystem>();
+            Destroy(infect, ps.main.duration * 2);
+        }
 
         switch (m_NPCManager.currentMutation)
         {
@@ -116,11 +121,44 @@ public class NPC : MonoBehaviour
                 transform.localScale = new Vector3(1.9f, 1.9f, 1f);
                 break;
 
-            case InfectedMutations.explodeAfterDeath:
-
-                break;
-
             case InfectedMutations.splitsIntoTwoUponDeath:
+                if (isSplitChild || Random.value >= 0.5f)
+                { 
+                    Destroy(gameObject);
+                    break;
+                }
+
+                Vector3 leftDir = Vector3.Cross(m_RigidBody.velocity, Vector3.forward);
+                Vector3 rightDir = -leftDir;
+
+                GameObject newNPC1 = Instantiate(NPCPrefab);
+                GameObject newNPC2 = Instantiate(NPCPrefab);
+
+                newNPC1.GetComponent<Rigidbody>().velocity = leftDir;
+                newNPC2.GetComponent<Rigidbody>().velocity = rightDir;
+
+                newNPC1.transform.localScale *= 0.6f;
+                newNPC2.transform.localScale *= 0.6f;
+
+                newNPC1.transform.parent = transform.parent;
+                newNPC2.transform.parent = transform.parent;
+
+                newNPC1.transform.position = transform.position;
+                newNPC2.transform.position = transform.position;
+
+                NPC NPC1 = newNPC1.GetComponent<NPC>();
+                NPC NPC2 = newNPC2.GetComponent<NPC>();
+
+                NPC1.infectedLifeTime *= 0.5f;
+                NPC2.infectedLifeTime *= 0.5f;
+
+                NPC1.isSplitChild = true;
+                NPC2.isSplitChild = true;
+
+                NPC1.OnInfected();
+                NPC2.OnInfected();
+
+                Destroy(gameObject);
 
                 break;
 
