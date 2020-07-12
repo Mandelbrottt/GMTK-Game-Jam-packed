@@ -44,6 +44,8 @@ public class NPC : MonoBehaviour
 		FindObjectOfType<LevelManager>().onPostLevelLoadEvent.AddListener(OnLevelLoad);
         
         isAlive = true;
+
+		m_NPCManager = FindObjectOfType<NPCManager>();
 	}
 
     void Update()
@@ -178,7 +180,6 @@ public class NPC : MonoBehaviour
     }
 
 	public void OnLevelLoad() {
-		m_NPCManager = FindObjectOfType<NPCManager>();
 		m_NPCManager.RegisterNPC(this);
 	}
 	

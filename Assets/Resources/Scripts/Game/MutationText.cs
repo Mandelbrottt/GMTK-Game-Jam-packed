@@ -12,8 +12,8 @@ public class MutationText : MonoBehaviour {
     public GameObject mutationDescription;
     public float durationInMiddleOfScreen;
 
-    public Vector3 textStartPosition;
-    public Vector3 textEndPosition;
+    private Vector3 m_textStartPosition;
+    private Vector3 m_textEndPosition;
 
     public Vector3 textStartScale;
     public Vector3 textEndScale;
@@ -52,9 +52,6 @@ public class MutationText : MonoBehaviour {
     {
         m_MutationTitle       = GetComponent<TMP_Text>();
         m_MutationDescription = mutationDescription.GetComponent<TMP_Text>();
-		
-		textStartPosition = new Vector3(Screen.width / 2f, Screen.height / 2f + m_MutationTitle.fontSize * 3, 0);
-		textEndPosition   = new Vector3(Screen.width / 2f, Screen.height, 0);
     }
 
     // Update is called once per frame
@@ -62,7 +59,10 @@ public class MutationText : MonoBehaviour {
     {
         m_MiddleOfScreenCountdown -= Time.deltaTime;
 
-		if (m_MutationTitle.text == String.Empty && !m_hasLevelStarted) {
+		m_textStartPosition = new Vector3(Screen.width / 2f, Screen.height / 2f + m_MutationTitle.fontSize * 3, 0);
+		m_textEndPosition   = new Vector3(Screen.width / 2f, Screen.height, 0);
+
+        if (m_MutationTitle.text == String.Empty && !m_hasLevelStarted) {
 			m_hasLevelStarted = true;
 
 			onLevelStart?.Invoke();
@@ -75,7 +75,7 @@ public class MutationText : MonoBehaviour {
             m_InterpolationParam += m_InterpolationSpeed * Time.deltaTime;
             Mathf.Min(m_InterpolationParam, 1f);
 
-            transform.position   = Vector3.Lerp(textStartPosition, textEndPosition, m_InterpolationParam);
+			transform.position   = Vector3.Lerp(m_textStartPosition, m_textEndPosition, m_InterpolationParam);
             transform.localScale = Vector3.Lerp(textStartScale,    textEndScale,    m_InterpolationParam);
         }
 		else if (!m_hasLevelStarted) {
@@ -92,7 +92,7 @@ public class MutationText : MonoBehaviour {
 
         m_InterpolationParam = 0f;
 
-        transform.position = textStartPosition;
+        transform.position = m_textStartPosition;
         transform.localScale = textStartScale;
 
         m_MutationTitle.text = "Mutation: ";
