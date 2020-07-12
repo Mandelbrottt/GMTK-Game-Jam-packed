@@ -32,16 +32,28 @@ public class NPCManager : MonoBehaviour
 		FindObjectOfType<MutationText>().onLevelStart.AddListener(PostLevelLoad);
 	}
 
+    private void Update()
+    {
+        for (int i = 0; i < NPCs.Count; i++)
+        {
+            if (!NPCs[i])
+            {
+                UnregisterNPC(NPCs[i], false);
+                i--;
+            }
+        }
+    }
+
     public void RegisterNPC(NPC a_NPC)
     {
         NPCs.Add(a_NPC);
 	}
 
-    public void UnregisterNPC(NPC a_NPC)
+    public void UnregisterNPC(NPC a_NPC, bool checkForLastAlive = true)
     {
         NPCs.Remove(a_NPC);
 
-		if (!AreThereAnyInfectedNPCs()) {
+		if (checkForLastAlive && !AreThereAnyInfectedNPCs()) {
 			onLastInfectedDied?.Invoke();
 		}
     }
@@ -66,9 +78,7 @@ public class NPCManager : MonoBehaviour
         if (nextLevelNum == m_LevelNum) //check for replayed level
         { }
         else if (nextLevelNum == 2 || nextLevelNum == 4 || nextLevelNum == 5 || nextLevelNum >= 7)
-        {
             currentMutation = (InfectedMutations)Random.Range(1, 7); //set a random mutation
-        }
         else
             currentMutation = InfectedMutations.none;
 
